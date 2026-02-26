@@ -4,10 +4,17 @@
     "slug": "timeattack",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a1a1a"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourname.timeattackgps",
+      "icon": "./assets/icon.png",
       "infoPlist": {
         "NSLocationAlwaysAndWhenInUseUsageDescription": "TimeAttack needs your location to track time attack runs in the background.",
         "NSLocationWhenInUseUsageDescription": "TimeAttack needs your location to track time attack runs.",
@@ -18,6 +25,11 @@
     },
     "android": {
       "package": "com.yourname.timeattackgps",
+      "icon": "./assets/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#1a1a1a"
+      },
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
