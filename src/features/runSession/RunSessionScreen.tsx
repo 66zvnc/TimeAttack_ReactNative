@@ -7,7 +7,7 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import MapView, { Circle, Marker, Polyline, Region } from 'react-native-maps';
+import MapView, { Circle, Marker, Polyline, Region, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useRunSession } from './useRunSession';
 import { useRunStore } from '../../store/useRunStore';
 import { RunState } from '../../core/timer/RunTimerEngine';
@@ -143,6 +143,7 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
   return (
     <View style={styles.container}>
       <MapView
+        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
         style={styles.map}
         region={region}
         onRegionChangeComplete={setRegion}

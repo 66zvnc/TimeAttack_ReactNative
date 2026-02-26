@@ -24,7 +24,12 @@
         "ACCESS_BACKGROUND_LOCATION",
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
-      ]
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBFAjtpcBdMuXkledgxsnoIX7IW4kAs_hg"
+        }
+      }
     },
     "plugins": [
       [
@@ -33,7 +38,8 @@
           "locationAlwaysAndWhenInUsePermission": "TimeAttack needs your location to track time attack runs in the background.",
           "locationAlwaysPermission": "TimeAttack needs your location to track time attack runs in the background.",
           "locationWhenInUsePermission": "TimeAttack needs your location to track time attack runs.",
-          "isIosBackgroundLocationEnabled": true
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true
         }
       ]
     ],

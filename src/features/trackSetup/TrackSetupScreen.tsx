@@ -8,7 +8,7 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import MapView, { Circle, Marker, Region } from 'react-native-maps';
+import MapView, { Circle, Marker, Region, PROVIDER_GOOGLE } from 'react-native-maps';
 import Slider from '@react-native-community/slider';
 import { useTrackSetup } from './useTrackSetup';
 import LocationService from '../../core/location/LocationService';
@@ -79,6 +79,7 @@ export const TrackSetupScreen: React.FC<{ navigation: any }> = ({ navigation }) 
   return (
     <View style={styles.container}>
       <MapView
+        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
         style={styles.map}
         region={region}
         onRegionChangeComplete={setRegion}
