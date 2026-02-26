@@ -219,12 +219,19 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
           >
             <Text style={styles.backButtonText}>←</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>{currentTrack.name}</Text>
-          <View style={styles.headerSpacer} />
+          <Text style={styles.headerTitle}>OVERLAP</Text>
+          <TouchableOpacity
+            style={styles.settingsButton}
+            onPress={() => {/* Settings placeholder */}}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.settingsIcon}>⚙</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Glass-Style Timer Card */}
         <View style={styles.timerCard}>
+          <Text style={styles.liveLabel}>LIVE LAP TIME</Text>
           <Text style={styles.timerText}>{formattedTime}</Text>
           
           <View style={styles.divider} />
@@ -232,14 +239,14 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
           <View style={styles.statsRow}>
             <View style={styles.statBox}>
               <Text style={styles.statValue}>{currentSpeed.toFixed(0)}</Text>
-              <Text style={styles.statLabel}>km/h</Text>
+              <Text style={styles.statLabel}>Speed</Text>
             </View>
             
             <View style={styles.statDivider} />
             
             <View style={styles.statBox}>
               <Text style={[styles.statValue, { color: getStateColor() }]}>
-                {getStateText()}
+                {getStateText().toUpperCase()}
               </Text>
               <Text style={styles.statLabel}>Status</Text>
             </View>
@@ -256,7 +263,7 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
           activeOpacity={0.8}
         >
           <Text style={styles.actionButtonText}>
-            {runState === RunState.idle ? 'Start' : 'Stop'}
+            {runState === RunState.idle ? 'START LAP' : 'STOP'}
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -301,15 +308,26 @@ const styles = StyleSheet.create({
     marginLeft: -2,
   },
   headerTitle: {
-    fontSize: theme.typography.sizes.medium,
-    fontWeight: theme.typography.weights.semibold,
+    fontSize: theme.typography.sizes.subtitle,
+    fontWeight: theme.typography.weights.bold,
     color: theme.colors.textInverse,
+    letterSpacing: 1,
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
   },
-  headerSpacer: {
+  settingsButton: {
     width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: theme.colors.glassBackground,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...theme.shadows.md,
+  },
+  settingsIcon: {
+    fontSize: 20,
+    color: theme.colors.textPrimary,
   },
   timerCard: {
     backgroundColor: theme.colors.glassBackground,
@@ -317,6 +335,14 @@ const styles = StyleSheet.create({
     padding: theme.spacing.xl,
     marginBottom: theme.spacing.lg,
     ...theme.shadows.lg,
+  },
+  liveLabel: {
+    fontSize: theme.typography.sizes.tiny,
+    fontWeight: theme.typography.weights.bold,
+    color: theme.colors.textSecondary,
+    textAlign: 'center',
+    letterSpacing: 1.5,
+    marginBottom: theme.spacing.sm,
   },
   timerText: {
     fontSize: theme.typography.sizes.timer,

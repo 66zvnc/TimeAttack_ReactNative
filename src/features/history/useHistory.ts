@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRunStore } from '../../store/useRunStore';
 import { Run } from '../../core/models/Run';
+import { Track } from '../../core/models/Track';
 import RunStorage from '../../core/storage/RunStorage';
 
 interface RunWithTrackName extends Run {
   trackName: string;
+  track: Track | null;
   isBest: boolean;
 }
 
@@ -49,6 +51,7 @@ export const useHistory = () => {
         return {
           ...run,
           trackName,
+          track: track || null,
           isBest,
         };
       })

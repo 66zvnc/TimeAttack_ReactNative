@@ -36,7 +36,8 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const handleSelectTrack = (track: any) => {
     setCurrentTrack(track);
-    navigation.navigate('RunSession');
+    // Navigate to Drive tab
+    navigation.navigate('DriveTab', { screen: 'RunSession' });
   };
 
   const handleDeleteTrack = async (trackId: string, trackName: string) => {
@@ -58,33 +59,36 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   };
 
   const renderTrackItem = ({ item }: { item: any }) => (
-    <TouchableOpacity
-      onPress={() => handleSelectTrack(item)}
-      onLongPress={() => handleDeleteTrack(item.id, item.name)}
-      activeOpacity={0.7}
-    >
-      <Card style={styles.trackCard}>
-        <Text style={styles.trackName}>{item.name}</Text>
-        
-        <View style={styles.coordinatesContainer}>
-          <Text style={styles.coordinateLabel}>Start</Text>
-          <Text style={styles.coordinateValue}>
-            {item.startCenter.latitude.toFixed(4)}, {item.startCenter.longitude.toFixed(4)}
-          </Text>
+    <Card style={styles.trackCard}>
+      <View style={styles.trackCardContent}>
+        <View style={styles.trackInfo}>
+          <Text style={styles.trackName}>{item.name}</Text>
+          
+          <View style={styles.coordinatesContainer}>
+            <Text style={styles.coordinateValue}>
+              {item.startCenter.latitude.toFixed(5)}, {item.startCenter.longitude.toFixed(5)}
+            </Text>
+          </View>
+          
+          <View style={styles.radiusBadge}>
+            <Text style={styles.radiusText}>Radius: {item.startRadius}m</Text>
+          </View>
         </View>
         
-        <View style={styles.coordinatesContainer}>
-          <Text style={styles.coordinateLabel}>Finish</Text>
-          <Text style={styles.coordinateValue}>
-            {item.finishCenter.latitude.toFixed(4)}, {item.finishCenter.longitude.toFixed(4)}
-          </Text>
-        </View>
-        
-        <View style={styles.radiusBadge}>
-          <Text style={styles.radiusText}>{item.startRadius}m</Text>
-        </View>
-      </Card>
-    </TouchableOpacity>
+        <PrimaryButton
+          title="Select"
+          onPress={() => handleSelectTrack(item)}
+          variant="primary"
+        />
+      </View>
+      
+      {/* Long press for delete */}
+      <TouchableOpacity
+        style={styles.deleteOverlay}
+        onLongPress={() => handleDeleteTrack(item.id, item.name)}
+        activeOpacity={1}
+      />
+    </Card>
   );
 
   return (
@@ -94,7 +98,7 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Time Attack</Text>
-          <Text style={styles.subtitle}>Select a track</Text>
+          <Text style={styles.subtitle}>Select a track to start</Text>
         </View>
 
         {/* Track List */}
@@ -117,20 +121,22 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
         {/* Bottom Buttons */}
         <View style={styles.bottomButtons}>
-          <View style={styles.buttonWrapper}>
-            <PrimaryButton
-              title="New Track"
-              onPress={() => navigation.navigate('TrackSetup')}
-              variant="outline"
-            />
-          </View>
-          <View style={styles.buttonWrapper}>
-            <PrimaryButton
-              title="History"
-              onPress={() => navigation.navigate('History')}
-              variant="primary"
-            />
-          </View>
+          <TouchableOpacity
+            style={styles.newTrackButton}
+            onPress={() => navigation.navigate('TrackSetup')}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.plusIcon}>+</Text>
+            <Text style={styles.newTrackText}>New Track</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            style={styles.historyButton}
+            onPress={() => navigation.navigate('HistoryTab')}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.historyButtonText}>History</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -169,19 +175,23 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.md,
     position: 'relative',
   },
+  trackCardContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: theme.spacing.md,
+  },
+  trackInfo: {
+    flex: 1,
+  },
   trackName: {
     fontSize: theme.typography.sizes.title,
     fontWeight: theme.typography.weights.bold,
     color: theme.colors.textPrimary,
-    marginBottom: theme.spacing.md,
+    marginBottom: theme.spacing.sm,
   },
   coordinatesContainer: {
     marginBottom: theme.spacing.sm,
-  },
-  coordinateLabel: {
-    fontSize: theme.typography.sizes.small,
-    color: theme.colors.textMuted,
-    marginBottom: 2,
   },
   coordinateValue: {
     fontSize: theme.typography.sizes.small,
@@ -189,18 +199,23 @@ const styles = StyleSheet.create({
     fontFamily: theme.typography.families.monospace,
   },
   radiusBadge: {
-    position: 'absolute',
-    top: theme.spacing.lg,
-    right: theme.spacing.lg,
     backgroundColor: theme.colors.primary,
+    alignSelf: 'flex-start',
     paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingVertical: 4,
     borderRadius: theme.radius.pill,
   },
   radiusText: {
-    fontSize: theme.typography.sizes.small,
+    fontSize: theme.typography.sizes.tiny,
     fontWeight: theme.typography.weights.semibold,
     color: theme.colors.textInverse,
+  },
+  deleteOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   emptyContainer: {
     flex: 1,
@@ -223,11 +238,42 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: theme.spacing.md,
     padding: theme.spacing.lg,
-    backgroundColor: theme.colors.card,
-    borderTopWidth: 1,
-    borderTopColor: theme.colors.cardBorder,
+    backgroundColor: theme.colors.background,
+    paddingBottom: Platform.OS === 'ios' ? theme.spacing.md : theme.spacing.lg,
   },
-  buttonWrapper: {
+  newTrackButton: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.card,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.radius.md,
+    borderWidth: 2,
+    borderColor: theme.colors.primary,
+    gap: theme.spacing.xs,
+  },
+  plusIcon: {
+    fontSize: 20,
+    fontWeight: theme.typography.weights.bold,
+    color: theme.colors.primary,
+  },
+  newTrackText: {
+    fontSize: theme.typography.sizes.medium,
+    fontWeight: theme.typography.weights.semibold,
+    color: theme.colors.primary,
+  },
+  historyButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.primary,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.radius.md,
+  },
+  historyButtonText: {
+    fontSize: theme.typography.sizes.medium,
+    fontWeight: theme.typography.weights.semibold,
+    color: theme.colors.textInverse,
   },
 });
