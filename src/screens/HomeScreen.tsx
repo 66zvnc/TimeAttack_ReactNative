@@ -37,9 +37,19 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   };
 
   const handleSelectTrack = (track: any) => {
+    console.log('=== Go button pressed ===');
+    console.log('Track:', track.name, 'ID:', track.id);
+    console.log('Navigation object:', navigation);
+    console.log('Setting current track...');
     setCurrentTrack(track);
-    // Navigate to Drive tab
-    navigation.navigate('DriveTab', { screen: 'RunSession' });
+    console.log('Navigating to RunSession...');
+    try {
+      navigation.navigate('RunSession', { track });
+      console.log('Navigation called successfully');
+    } catch (error) {
+      console.error('Navigation error:', error);
+      Alert.alert('Navigation Error', `Failed to navigate: ${error}`)
+    }
   };
 
   const handleDeleteTrack = async (trackId: string, trackName: string) => {
@@ -71,7 +81,11 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
     return (
       <Card style={styles.trackCard}>
-        <View style={styles.trackCardHeader}>
+        <TouchableOpacity
+          onLongPress={() => handleDeleteTrack(item.id, item.name)}
+          activeOpacity={1}
+        >
+          <View style={styles.trackCardHeader}>
           {/* Map Preview */}
           <View style={styles.mapPreviewContainer}>
             <MapView
@@ -115,23 +129,17 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             </Text>
           </View>
         </View>
+        </TouchableOpacity>
         
-        {/* Select Button */}
+        {/* Go Button */}
         <View style={styles.selectButtonContainer}>
           <PrimaryButton
-            title="Select"
+            title="Go"
             onPress={() => handleSelectTrack(item)}
             variant="primary"
             style={styles.selectButton}
           />
         </View>
-        
-        {/* Long press for delete */}
-        <TouchableOpacity
-          style={styles.deleteOverlay}
-          onLongPress={() => handleDeleteTrack(item.id, item.name)}
-          activeOpacity={1}
-        />
       </Card>
     );
   };
@@ -292,13 +300,6 @@ const styles = StyleSheet.create({
   },
   selectButton: {
     paddingHorizontal: 32,
-  },
-  deleteOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
   },
   emptyContainer: {
     flex: 1,

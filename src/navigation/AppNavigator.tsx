@@ -13,7 +13,7 @@ import { theme } from '../theme/theme';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// Stack navigator for Tracks tab (includes track selection and setup)
+// Stack navigator for Tracks tab (includes track selection, setup, and run session)
 const TracksStack = () => {
   return (
     <Stack.Navigator
@@ -42,29 +42,6 @@ const TracksStack = () => {
         component={TrackSetupScreen}
         options={{ title: 'Create Track' }}
       />
-    </Stack.Navigator>
-  );
-};
-
-// Stack navigator for Drive tab
-const DriveStack = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: theme.colors.card,
-          elevation: 0,
-          shadowOpacity: 0,
-          borderBottomWidth: 1,
-          borderBottomColor: theme.colors.cardBorder,
-        },
-        headerTintColor: theme.colors.textPrimary,
-        headerTitleStyle: {
-          fontWeight: theme.typography.weights.bold,
-          fontSize: theme.typography.sizes.title,
-        },
-      }}
-    >
       <Stack.Screen
         name="RunSession"
         component={RunSessionScreen}
@@ -73,6 +50,8 @@ const DriveStack = () => {
     </Stack.Navigator>
   );
 };
+
+
 
 // Stack navigator for History tab
 const HistoryStack = () => {
@@ -156,11 +135,11 @@ export const AppNavigator: React.FC = () => {
         }}
       >
         <Tab.Screen
-          name="DriveTab"
-          component={DriveStack}
+          name="TracksTab"
+          component={TracksStack}
           options={{
-            tabBarLabel: 'DRIVE',
-            tabBarIcon: ({ color }) => <TabBarIcon name="drive" color={color} />,
+            tabBarLabel: 'TRACKS',
+            tabBarIcon: ({ color }) => <TabBarIcon name="tracks" color={color} />,
           }}
         />
         <Tab.Screen
@@ -169,14 +148,6 @@ export const AppNavigator: React.FC = () => {
           options={{
             tabBarLabel: 'HISTORY',
             tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
-          }}
-        />
-        <Tab.Screen
-          name="TracksTab"
-          component={TracksStack}
-          options={{
-            tabBarLabel: 'TRACKS',
-            tabBarIcon: ({ color }) => <TabBarIcon name="tracks" color={color} />,
           }}
         />
         <Tab.Screen

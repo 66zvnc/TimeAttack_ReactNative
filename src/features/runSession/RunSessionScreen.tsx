@@ -16,8 +16,21 @@ import { RunState } from '../../core/timer/RunTimerEngine';
 import { Card } from '../../components/Card';
 import { theme } from '../../theme/theme';
 
-export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const { currentTrack } = useRunStore();
+export const RunSessionScreen: React.FC<{ navigation: any; route?: any }> = ({ navigation, route }) => {
+  const { currentTrack, setCurrentTrack } = useRunStore();
+  
+  // Get track from route params (passed from HomeScreen)
+  const trackFromRoute = route?.params?.track;
+  
+  // Sync route track to store on mount
+  useEffect(() => {
+    if (trackFromRoute) {
+      setCurrentTrack(trackFromRoute);
+    }
+  }, [trackFromRoute]);
+  
+  // Use currentTrack from store (which will be set from route on mount)
+  const activeTrack = currentTrack;
   const {
     runState,
     currentSpeed,
@@ -26,20 +39,20 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
     currentLocation,
     startRun,
     stopRun,
-  } = useRunSession(currentTrack);
+  } = useRunSession(activeTrack);
 
   const [region, setRegion] = useState<Region | undefined>(undefined);
 
   useEffect(() => {
-    if (currentTrack) {
+    if (activeTrack) {
       setRegion({
-        latitude: currentTrack.startCenter.latitude,
-        longitude: currentTrack.startCenter.longitude,
+        latitude: activeTrack.startCenter.latitude,
+        longitude: activeTrack.startCenter.longitude,
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       });
     }
-  }, [currentTrack]);
+  }, [activeTrack]);
 
   useEffect(() => {
     if (currentLocation && runState === RunState.running) {
@@ -95,7 +108,7 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
     }
   }, [runState]);
 
-  if (!currentTrack) {
+  if (!activeTrack) {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
@@ -162,28 +175,28 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
       >
         {/* Start Zone */}
         <Circle
-          center={currentTrack.startCenter}
-          radius={currentTrack.startRadius}
+          center={activeTrack.startCenter}
+          radius={activeTrack.startRadius}
           fillColor="rgba(34, 197, 94, 0.15)"
           strokeColor="rgba(34, 197, 94, 0.6)"
           strokeWidth={2}
         />
         <Marker
-          coordinate={currentTrack.startCenter}
+          coordinate={activeTrack.startCenter}
           pinColor={theme.colors.success}
           title="Start"
         />
 
         {/* Finish Zone */}
         <Circle
-          center={currentTrack.finishCenter}
-          radius={currentTrack.finishRadius}
+          center={activeTrack.finishCenter}
+          radius={activeTrack.finishRadius}
           fillColor="rgba(239, 68, 68, 0.15)"
           strokeColor="rgba(239, 68, 68, 0.6)"
           strokeWidth={2}
         />
         <Marker
-          coordinate={currentTrack.finishCenter}
+          coordinate={activeTrack.finishCenter}
           pinColor={theme.colors.error}
           title="Finish"
         />
