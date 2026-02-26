@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "TimeAttack",
+    "slug": "timeattack",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourname.timeattackgps",
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "TimeAttack needs your location to track time attack runs in the background.",
+        "NSLocationWhenInUseUsageDescription": "TimeAttack needs your location to track time attack runs.",
+        "UIBackgroundModes": [
+          "location"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.yourname.timeattackgps",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "TimeAttack needs your location to track time attack runs in the background.",
+          "locationAlwaysPermission": "TimeAttack needs your location to track time attack runs in the background.",
+          "locationWhenInUsePermission": "TimeAttack needs your location to track time attack runs.",
+          "isIosBackgroundLocationEnabled": true
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6778e786-b869-4b90-950b-f20c94d82895"
+      }
+    }
+  }
+}
