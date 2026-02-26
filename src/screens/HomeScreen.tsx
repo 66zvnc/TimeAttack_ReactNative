@@ -102,7 +102,7 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           
           {/* Radius Badge */}
           <View style={styles.radiusBadge}>
-            <Text style={styles.radiusText}>Radius: {item.startRadius}m</Text>
+            <Text style={styles.radiusText}>Radius: {item.startRadius.toFixed(1)}m</Text>
           </View>
         </View>
         
