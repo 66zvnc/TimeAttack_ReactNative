@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: theme.typography.sizes.title,
+    fontFamily: theme.typography.families.bold,
     fontWeight: theme.typography.weights.bold,
     color: theme.colors.textPrimary,
   },

@@ -53,6 +53,17 @@
           "isIosBackgroundLocationEnabled": true,
           "isAndroidBackgroundLocationEnabled": true
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./fonts/Inter/static/Inter_18pt-Regular.ttf",
+            "./fonts/Inter/static/Inter_18pt-Medium.ttf",
+            "./fonts/Inter/static/Inter_18pt-SemiBold.ttf",
+            "./fonts/Inter/static/Inter_18pt-Bold.ttf"
+          ]
+        }
       ]
     ],
     "extra": {

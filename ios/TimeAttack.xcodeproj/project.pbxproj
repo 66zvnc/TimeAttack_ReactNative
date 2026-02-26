@@ -7,26 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08FC7EFC6E7215E05C99FD0B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 69C49AF08863D2F507D6D1F3 /* PrivacyInfo.xcprivacy */; };
+		10D6BB033C044F7686DBF488 /* Inter_18pt-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B38A951A25A549DC9025D486 /* Inter_18pt-Regular.ttf */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		5F6D91608AA1700443AA5AFF /* libPods-TimeAttack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EDB3CA882D23A467683683B /* libPods-TimeAttack.a */; };
-		86DC03BB100CB2575E6C8BDD /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6CCB02D9BD94D454B04FD6 /* ExpoModulesProvider.swift */; };
+		834FB5829AAE412791FCD480 /* Inter_18pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A802DEA2837E4988B129ECF9 /* Inter_18pt-Medium.ttf */; };
+		9234CEAAF0B442139B59BD0A /* Inter_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 783F7A765BD14E8FAC4DF9C5 /* Inter_18pt-Bold.ttf */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		DA7B8E8B8B4D9294E718EBC4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 62736D1EC23A957516D8CCBA /* PrivacyInfo.xcprivacy */; };
+		DF60FA5559F84D06BA8A2B78 /* Inter_18pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8266874BC2BD46A98FBDEC49 /* Inter_18pt-SemiBold.ttf */; };
+		F09F757D05F7C497636E242D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AEAC398084CBA864DB19F /* ExpoModulesProvider.swift */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
+		F42569BBCE181B1225E94A2A /* libPods-TimeAttack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E04DB75B5CC199FEEBE1574 /* libPods-TimeAttack.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* TimeAttack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeAttack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TimeAttack/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TimeAttack/Info.plist; sourceTree = "<group>"; };
-		1416376AABA7CCE9B0374EC6 /* Pods-TimeAttack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeAttack.debug.xcconfig"; path = "Target Support Files/Pods-TimeAttack/Pods-TimeAttack.debug.xcconfig"; sourceTree = "<group>"; };
-		1EDB3CA882D23A467683683B /* libPods-TimeAttack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimeAttack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		69C49AF08863D2F507D6D1F3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = TimeAttack/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		6C6CCB02D9BD94D454B04FD6 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-TimeAttack/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		62736D1EC23A957516D8CCBA /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = TimeAttack/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		6E04DB75B5CC199FEEBE1574 /* libPods-TimeAttack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimeAttack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		783F7A765BD14E8FAC4DF9C5 /* Inter_18pt-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Bold.ttf"; path = "../fonts/Inter/static/Inter_18pt-Bold.ttf"; sourceTree = "<group>"; };
+		8266874BC2BD46A98FBDEC49 /* Inter_18pt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-SemiBold.ttf"; path = "../fonts/Inter/static/Inter_18pt-SemiBold.ttf"; sourceTree = "<group>"; };
+		9E8AEAC398084CBA864DB19F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-TimeAttack/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		A802DEA2837E4988B129ECF9 /* Inter_18pt-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Medium.ttf"; path = "../fonts/Inter/static/Inter_18pt-Medium.ttf"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = TimeAttack/SplashScreen.storyboard; sourceTree = "<group>"; };
-		B74F1B94ABC90EA0D1A4AB67 /* Pods-TimeAttack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeAttack.release.xcconfig"; path = "Target Support Files/Pods-TimeAttack/Pods-TimeAttack.release.xcconfig"; sourceTree = "<group>"; };
+		B38A951A25A549DC9025D486 /* Inter_18pt-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter_18pt-Regular.ttf"; path = "../fonts/Inter/static/Inter_18pt-Regular.ttf"; sourceTree = "<group>"; };
+		B93190940BADB05C3D3009C9 /* Pods-TimeAttack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeAttack.release.xcconfig"; path = "Target Support Files/Pods-TimeAttack/Pods-TimeAttack.release.xcconfig"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		EBD6D40D55660BE725BCF8F0 /* Pods-TimeAttack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeAttack.debug.xcconfig"; path = "Target Support Files/Pods-TimeAttack/Pods-TimeAttack.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TimeAttack/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* TimeAttack-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TimeAttack-Bridging-Header.h"; path = "TimeAttack/TimeAttack-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -37,13 +45,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F6D91608AA1700443AA5AFF /* libPods-TimeAttack.a in Frameworks */,
+				F42569BBCE181B1225E94A2A /* libPods-TimeAttack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		096C08710098FFAE53A8E232 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EBD6D40D55660BE725BCF8F0 /* Pods-TimeAttack.debug.xcconfig */,
+				B93190940BADB05C3D3009C9 /* Pods-TimeAttack.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* TimeAttack */ = {
 			isa = PBXGroup;
 			children = (
@@ -53,25 +71,24 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				69C49AF08863D2F507D6D1F3 /* PrivacyInfo.xcprivacy */,
+				62736D1EC23A957516D8CCBA /* PrivacyInfo.xcprivacy */,
 			);
 			name = TimeAttack;
 			sourceTree = "<group>";
 		};
-		1B41B93335F4BF23640C9303 /* Pods */ = {
+		2047F475C97E4F92039ED868 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				1416376AABA7CCE9B0374EC6 /* Pods-TimeAttack.debug.xcconfig */,
-				B74F1B94ABC90EA0D1A4AB67 /* Pods-TimeAttack.release.xcconfig */,
+				8610D102095B82342C9D306D /* TimeAttack */,
 			);
-			path = Pods;
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				1EDB3CA882D23A467683683B /* libPods-TimeAttack.a */,
+				6E04DB75B5CC199FEEBE1574 /* libPods-TimeAttack.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -90,8 +107,9 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				1B41B93335F4BF23640C9303 /* Pods */,
-				EB7C956F8BA37A637EDDAE1F /* ExpoModulesProviders */,
+				B0E5BF3D4A434DD8BACE7524 /* Resources */,
+				096C08710098FFAE53A8E232 /* Pods */,
+				2047F475C97E4F92039ED868 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -106,12 +124,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8A8DE24C835EEA28CCBB9C39 /* TimeAttack */ = {
+		8610D102095B82342C9D306D /* TimeAttack */ = {
 			isa = PBXGroup;
 			children = (
-				6C6CCB02D9BD94D454B04FD6 /* ExpoModulesProvider.swift */,
+				9E8AEAC398084CBA864DB19F /* ExpoModulesProvider.swift */,
 			);
 			name = TimeAttack;
+			sourceTree = "<group>";
+		};
+		B0E5BF3D4A434DD8BACE7524 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B38A951A25A549DC9025D486 /* Inter_18pt-Regular.ttf */,
+				A802DEA2837E4988B129ECF9 /* Inter_18pt-Medium.ttf */,
+				8266874BC2BD46A98FBDEC49 /* Inter_18pt-SemiBold.ttf */,
+				783F7A765BD14E8FAC4DF9C5 /* Inter_18pt-Bold.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -123,14 +153,6 @@
 			path = TimeAttack/Supporting;
 			sourceTree = "<group>";
 		};
-		EB7C956F8BA37A637EDDAE1F /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				8A8DE24C835EEA28CCBB9C39 /* TimeAttack */,
-			);
-			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,13 +161,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TimeAttack" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				7D305B0AF82159A3EA0099D7 /* [Expo] Configure project */,
+				4186FE9304C14DD5889EF702 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				FF3B850A7C00F6A3FC5FB39C /* [CP] Embed Pods Frameworks */,
+				93CC8E80E5699E698BD65265 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -166,6 +188,8 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
+						DevelopmentTeam = "QKYMN567PP";
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -195,7 +219,11 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				08FC7EFC6E7215E05C99FD0B /* PrivacyInfo.xcprivacy in Resources */,
+				10D6BB033C044F7686DBF488 /* Inter_18pt-Regular.ttf in Resources */,
+				834FB5829AAE412791FCD480 /* Inter_18pt-Medium.ttf in Resources */,
+				DF60FA5559F84D06BA8A2B78 /* Inter_18pt-SemiBold.ttf in Resources */,
+				9234CEAAF0B442139B59BD0A /* Inter_18pt-Bold.ttf in Resources */,
+				DA7B8E8B8B4D9294E718EBC4 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +269,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D305B0AF82159A3EA0099D7 /* [Expo] Configure project */ = {
+		4186FE9304C14DD5889EF702 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -299,7 +327,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TimeAttack/Pods-TimeAttack-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FF3B850A7C00F6A3FC5FB39C /* [CP] Embed Pods Frameworks */ = {
+		93CC8E80E5699E698BD65265 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -329,7 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				86DC03BB100CB2575E6C8BDD /* ExpoModulesProvider.swift in Sources */,
+				F09F757D05F7C497636E242D /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,13 +366,12 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1416376AABA7CCE9B0374EC6 /* Pods-TimeAttack.debug.xcconfig */;
+			baseConfigurationReference = EBD6D40D55660BE725BCF8F0 /* Pods-TimeAttack.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TimeAttack/TimeAttack.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QKYMN567PP;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -370,18 +397,20 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = "QKYMN567PP";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B74F1B94ABC90EA0D1A4AB67 /* Pods-TimeAttack.release.xcconfig */;
+			baseConfigurationReference = B93190940BADB05C3D3009C9 /* Pods-TimeAttack.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TimeAttack/TimeAttack.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QKYMN567PP;
 				INFOPLIST_FILE = TimeAttack/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -401,6 +430,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = "QKYMN567PP";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Release;
 		};

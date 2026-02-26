@@ -77,7 +77,10 @@ export const theme = {
     
     // Families
     families: {
-      default: 'System',
+      default: 'Inter-Regular',
+      medium: 'Inter-Medium',
+      semibold: 'Inter-SemiBold',
+      bold: 'Inter-Bold',
       monospace: 'Menlo',
     },
   },
@@ -106,6 +109,21 @@ export const theme = {
       elevation: 8,
     },
   },
+};
+
+// Helper function to get the correct font family based on weight
+export const getFontFamily = (weight?: '400' | '500' | '600' | '700'): string => {
+  switch (weight) {
+    case '500':
+      return theme.typography.families.medium;
+    case '600':
+      return theme.typography.families.semibold;
+    case '700':
+      return theme.typography.families.bold;
+    case '400':
+    default:
+      return theme.typography.families.default;
+  }
 };
 
 export type Theme = typeof theme;
