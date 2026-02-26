@@ -6,11 +6,15 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  StatusBar,
+  SafeAreaView,
 } from 'react-native';
 import MapView, { Circle, Marker, Polyline, Region, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useRunSession } from './useRunSession';
 import { useRunStore } from '../../store/useRunStore';
 import { RunState } from '../../core/timer/RunTimerEngine';
+import { Card } from '../../components/Card';
+import { theme } from '../../theme/theme';
 
 export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { currentTrack } = useRunStore();
@@ -93,15 +97,18 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
 
   if (!currentTrack) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>No track selected</Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.buttonText}>Go Back</Text>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>No track selected</Text>
+          <TouchableOpacity
+            style={styles.errorButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.errorButtonText}>Go Back</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     );
   }
 
@@ -123,15 +130,15 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
   const getStateColor = () => {
     switch (runState) {
       case RunState.idle:
-        return '#666';
+        return theme.colors.textSecondary;
       case RunState.waitingForStartExit:
-        return '#FF9500';
+        return theme.colors.warning;
       case RunState.running:
-        return '#34C759';
+        return theme.colors.success;
       case RunState.finished:
-        return '#007AFF';
+        return theme.colors.primary;
       default:
-        return '#666';
+        return theme.colors.textSecondary;
     }
   };
 
@@ -142,6 +149,9 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      
+      {/* Full-screen Map */}
       <MapView
         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
         style={styles.map}
@@ -150,40 +160,44 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
         showsUserLocation
         followsUserLocation={runState === RunState.running}
       >
+        {/* Start Zone */}
         <Circle
           center={currentTrack.startCenter}
           radius={currentTrack.startRadius}
-          fillColor="rgba(0, 255, 0, 0.2)"
-          strokeColor="rgba(0, 255, 0, 0.5)"
+          fillColor="rgba(34, 197, 94, 0.15)"
+          strokeColor="rgba(34, 197, 94, 0.6)"
           strokeWidth={2}
         />
         <Marker
           coordinate={currentTrack.startCenter}
-          pinColor="green"
+          pinColor={theme.colors.success}
           title="Start"
         />
 
+        {/* Finish Zone */}
         <Circle
           center={currentTrack.finishCenter}
           radius={currentTrack.finishRadius}
-          fillColor="rgba(255, 0, 0, 0.2)"
-          strokeColor="rgba(255, 0, 0, 0.5)"
+          fillColor="rgba(239, 68, 68, 0.15)"
+          strokeColor="rgba(239, 68, 68, 0.6)"
           strokeWidth={2}
         />
         <Marker
           coordinate={currentTrack.finishCenter}
-          pinColor="red"
+          pinColor={theme.colors.error}
           title="Finish"
         />
 
+        {/* Path Polyline */}
         {polylineCoordinates.length > 0 && (
           <Polyline
             coordinates={polylineCoordinates}
-            strokeColor="#007AFF"
-            strokeWidth={3}
+            strokeColor={theme.colors.primary}
+            strokeWidth={4}
           />
         )}
 
+        {/* User Location Marker */}
         {currentLocation && (
           <Marker
             coordinate={currentLocation}
@@ -194,43 +208,58 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
         )}
       </MapView>
 
-      <View style={styles.overlay}>
-        <View style={styles.statsContainer}>
-          <View style={styles.timerContainer}>
-            <Text style={styles.timerText}>{formattedTime}</Text>
-          </View>
+      {/* Floating UI Overlay */}
+      <SafeAreaView style={styles.overlay}>
+        {/* Minimal Top Navigation */}
+        <View style={styles.headerNav}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.backButtonText}>←</Text>
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>{currentTrack.name}</Text>
+          <View style={styles.headerSpacer} />
+        </View>
 
-          <View style={styles.infoRow}>
-            <View style={styles.infoBox}>
-              <Text style={styles.infoLabel}>Speed</Text>
-              <Text style={styles.infoValue}>
-                {currentSpeed.toFixed(0)} km/h
-              </Text>
+        {/* Glass-Style Timer Card */}
+        <View style={styles.timerCard}>
+          <Text style={styles.timerText}>{formattedTime}</Text>
+          
+          <View style={styles.divider} />
+          
+          <View style={styles.statsRow}>
+            <View style={styles.statBox}>
+              <Text style={styles.statValue}>{currentSpeed.toFixed(0)}</Text>
+              <Text style={styles.statLabel}>km/h</Text>
             </View>
-
-            <View style={styles.infoBox}>
-              <Text style={styles.infoLabel}>Status</Text>
-              <Text style={[styles.infoValue, { color: getStateColor() }]}>
+            
+            <View style={styles.statDivider} />
+            
+            <View style={styles.statBox}>
+              <Text style={[styles.statValue, { color: getStateColor() }]}>
                 {getStateText()}
               </Text>
+              <Text style={styles.statLabel}>Status</Text>
             </View>
           </View>
         </View>
 
+        {/* Start/Stop Button */}
         <TouchableOpacity
           style={[
             styles.actionButton,
-            runState === RunState.idle
-              ? styles.startButton
-              : styles.stopButton,
+            runState === RunState.idle && styles.startButton,
           ]}
           onPress={handleStartStop}
+          activeOpacity={0.8}
         >
           <Text style={styles.actionButtonText}>
             {runState === RunState.idle ? 'Start' : 'Stop'}
           </Text>
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     </View>
   );
 };
@@ -238,112 +267,140 @@ export const RunSessionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.colors.backgroundDark,
   },
   map: {
     flex: 1,
   },
   overlay: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 20,
-    left: 16,
-    right: 16,
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: theme.spacing.lg,
   },
-  statsContainer: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 16,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
-        shadowRadius: 8,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
-  },
-  timerContainer: {
+  headerNav: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    justifyContent: 'space-between',
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.xl,
+  },
+  backButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: theme.colors.glassBackground,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...theme.shadows.md,
+  },
+  backButtonText: {
+    fontSize: 24,
+    color: theme.colors.textPrimary,
+    marginLeft: -2,
+  },
+  headerTitle: {
+    fontSize: theme.typography.sizes.medium,
+    fontWeight: theme.typography.weights.semibold,
+    color: theme.colors.textInverse,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 4,
+  },
+  headerSpacer: {
+    width: 44,
+  },
+  timerCard: {
+    backgroundColor: theme.colors.glassBackground,
+    borderRadius: theme.radius.xl,
+    padding: theme.spacing.xl,
+    marginBottom: theme.spacing.lg,
+    ...theme.shadows.lg,
   },
   timerText: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#000',
-    fontVariant: ['tabular-nums'],
+    fontSize: theme.typography.sizes.timer,
+    fontWeight: theme.typography.weights.bold,
+    color: theme.colors.textPrimary,
+    textAlign: 'center',
+    fontFamily: theme.typography.families.monospace,
+    letterSpacing: -1,
   },
-  infoRow: {
+  divider: {
+    height: 1,
+    backgroundColor: theme.colors.cardBorder,
+    marginVertical: theme.spacing.lg,
+  },
+  statsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  infoBox: {
     alignItems: 'center',
   },
-  infoLabel: {
-    fontSize: 14,
-    color: '#666',
+  statBox: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  statValue: {
+    fontSize: theme.typography.sizes.title,
+    fontWeight: theme.typography.weights.bold,
+    color: theme.colors.textPrimary,
     marginBottom: 4,
   },
-  infoValue: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#000',
+  statLabel: {
+    fontSize: theme.typography.sizes.small,
+    color: theme.colors.textSecondary,
+    fontWeight: theme.typography.weights.medium,
+  },
+  statDivider: {
+    width: 1,
+    height: 40,
+    backgroundColor: theme.colors.cardBorder,
+    marginHorizontal: theme.spacing.md,
   },
   actionButton: {
-    padding: 20,
-    borderRadius: 16,
+    backgroundColor: theme.colors.error,
+    paddingVertical: 20,
+    borderRadius: theme.radius.pill,
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
-        shadowRadius: 8,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
+    ...theme.shadows.lg,
   },
   startButton: {
-    backgroundColor: '#34C759',
-  },
-  stopButton: {
-    backgroundColor: '#FF3B30',
+    backgroundColor: theme.colors.success,
   },
   actionButtonText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
+    color: theme.colors.textInverse,
+    fontSize: theme.typography.sizes.title,
+    fontWeight: theme.typography.weights.bold,
+    letterSpacing: 0.5,
   },
   userMarker: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: '#007AFF',
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: theme.colors.primary,
     borderWidth: 3,
-    borderColor: 'white',
+    borderColor: theme.colors.textInverse,
+    ...theme.shadows.sm,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.xl,
   },
   errorText: {
-    fontSize: 18,
-    color: '#666',
-    textAlign: 'center',
-    marginTop: 100,
+    fontSize: theme.typography.sizes.title,
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.lg,
   },
-  button: {
-    backgroundColor: '#007AFF',
-    padding: 16,
-    borderRadius: 8,
-    margin: 20,
-    alignItems: 'center',
+  errorButton: {
+    backgroundColor: theme.colors.primary,
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.xl,
+    borderRadius: theme.radius.md,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+  errorButtonText: {
+    color: theme.colors.textInverse,
+    fontSize: theme.typography.sizes.medium,
+    fontWeight: theme.typography.weights.semibold,
   },
 });

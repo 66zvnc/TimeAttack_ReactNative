@@ -7,11 +7,14 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  StatusBar,
 } from 'react-native';
 import MapView, { Circle, Marker, Region, PROVIDER_GOOGLE } from 'react-native-maps';
 import Slider from '@react-native-community/slider';
 import { useTrackSetup } from './useTrackSetup';
 import LocationService from '../../core/location/LocationService';
+import { PrimaryButton  } from '../../components/PrimaryButton';
+import { theme } from '../../theme/theme';
 
 export const TrackSetupScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const {
@@ -78,6 +81,9 @@ export const TrackSetupScreen: React.FC<{ navigation: any }> = ({ navigation }) 
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+      
+      {/* Full-Screen Map */}
       <MapView
         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
         style={styles.map}
@@ -85,100 +91,120 @@ export const TrackSetupScreen: React.FC<{ navigation: any }> = ({ navigation }) 
         onRegionChangeComplete={setRegion}
         onPress={handleMapPress}
       >
+        {/* Start Zone */}
         {startCenter && (
           <>
             <Marker
               coordinate={startCenter}
-              pinColor="green"
+              pinColor={theme.colors.success}
               title="Start"
             />
             <Circle
               center={startCenter}
               radius={radius}
-              fillColor="rgba(0, 255, 0, 0.2)"
-              strokeColor="rgba(0, 255, 0, 0.5)"
+              fillColor="rgba(34, 197, 94, 0.15)"
+              strokeColor="rgba(34, 197, 94, 0.6)"
               strokeWidth={2}
             />
           </>
         )}
+        
+        {/* Finish Zone */}
         {finishCenter && (
           <>
             <Marker
               coordinate={finishCenter}
-              pinColor="red"
+              pinColor={theme.colors.error}
               title="Finish"
             />
             <Circle
               center={finishCenter}
               radius={radius}
-              fillColor="rgba(255, 0, 0, 0.2)"
-              strokeColor="rgba(255, 0, 0, 0.5)"
+              fillColor="rgba(239, 68, 68, 0.15)"
+              strokeColor="rgba(239, 68, 68, 0.6)"
               strokeWidth={2}
             />
           </>
         )}
       </MapView>
 
-      <View style={styles.controls}>
+      {/* Bottom Sheet Panel */}
+      <View style={styles.bottomSheet}>
+        {/* Drag Handle */}
+        <View style={styles.dragHandle} />
+        
+        {/* Track Name Input */}
+        <Text style={styles.sectionLabel}>TRACK NAME</Text>
         <TextInput
           style={styles.input}
-          placeholder="Track Name"
+          placeholder="Enter track name"
+          placeholderTextColor={theme.colors.textMuted}
           value={trackName}
           onChangeText={setTrackName}
         />
 
+        {/* Placement Buttons */}
         <View style={styles.buttonRow}>
           <TouchableOpacity
             style={[
-              styles.button,
-              placementMode === 'start' && styles.buttonActive,
+              styles.placementButton,
+              placementMode === 'start' && styles.placementButtonActive,
             ]}
             onPress={() =>
               setPlacementMode(placementMode === 'start' ? 'none' : 'start')
             }
+            activeOpacity={0.7}
           >
-            <Text style={styles.buttonText}>
-              {startCenter ? 'Move Start' : 'Set Start'}
+            <Text style={[
+              styles.placementButtonText,
+              placementMode === 'start' && styles.placementButtonTextActive,
+            ]}>
+              {startCenter ? '✓ Start Set' : 'Set Start'}
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
-              styles.button,
-              placementMode === 'finish' && styles.buttonActive,
+              styles.placementButton,
+              placementMode === 'finish' && styles.placementButtonActive,
             ]}
             onPress={() =>
               setPlacementMode(placementMode === 'finish' ? 'none' : 'finish')
             }
+            activeOpacity={0.7}
           >
-            <Text style={styles.buttonText}>
-              {finishCenter ? 'Move Finish' : 'Set Finish'}
+            <Text style={[
+              styles.placementButtonText,
+              placementMode === 'finish' && styles.placementButtonTextActive,
+            ]}>
+              {finishCenter ? '✓ Finish Set' : 'Set Finish'}
             </Text>
           </TouchableOpacity>
         </View>
 
+        {/* Radius Slider */}
         <View style={styles.sliderContainer}>
-          <Text style={styles.label}>Radius: {radius.toFixed(0)}m</Text>
+          <Text style={styles.sectionLabel}>RADIUS: {radius.toFixed(0)}m</Text>
           <Slider
             style={styles.slider}
             minimumValue={20}
             maximumValue={200}
             value={radius}
             onValueChange={updateRadius}
-            minimumTrackTintColor="#007AFF"
-            maximumTrackTintColor="#d3d3d3"
+            minimumTrackTintColor={theme.colors.primary}
+            maximumTrackTintColor={theme.colors.cardBorder}
+            thumbTintColor={theme.colors.primary}
           />
         </View>
 
-        <TouchableOpacity
-          style={[styles.saveButton, !canSave && styles.saveButtonDisabled]}
+        {/* Save Button */}
+        <PrimaryButton
+          title={isSaving ? 'Saving...' : 'Save Track'}
           onPress={handleSave}
           disabled={!canSave || isSaving}
-        >
-          <Text style={styles.saveButtonText}>
-            {isSaving ? 'Saving...' : 'Save Track'}
-          </Text>
-        </TouchableOpacity>
+          loading={isSaving}
+          variant="success"
+        />
       </View>
     </View>
   );
@@ -187,83 +213,79 @@ export const TrackSetupScreen: React.FC<{ navigation: any }> = ({ navigation }) 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.background,
   },
   map: {
     flex: 1,
   },
-  controls: {
+  bottomSheet: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'white',
-    padding: 16,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: -2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-      },
-      android: {
-        elevation: 8,
-      },
-    }),
+    backgroundColor: theme.colors.card,
+    borderTopLeftRadius: theme.radius.xl,
+    borderTopRightRadius: theme.radius.xl,
+    padding: theme.spacing.lg,
+    paddingBottom: Platform.OS === 'ios' ? theme.spacing.xl : theme.spacing.lg,
+    ...theme.shadows.lg,
+  },
+  dragHandle: {
+    width: 40,
+    height: 4,
+    backgroundColor: theme.colors.cardBorder,
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: theme.spacing.lg,
+  },
+  sectionLabel: {
+    fontSize: theme.typography.sizes.small,
+    fontWeight: theme.typography.weights.semibold,
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.sm,
+    letterSpacing: 0.5,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    marginBottom: 12,
+    borderColor: theme.colors.cardBorder,
+    borderRadius: theme.radius.md,
+    padding: theme.spacing.md,
+    fontSize: theme.typography.sizes.medium,
+    color: theme.colors.textPrimary,
+    marginBottom: theme.spacing.lg,
+    backgroundColor: theme.colors.background,
   },
   buttonRow: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 12,
+    gap: theme.spacing.md,
+    marginBottom: theme.spacing.lg,
   },
-  button: {
+  placementButton: {
     flex: 1,
-    backgroundColor: '#007AFF',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: theme.colors.background,
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.radius.md,
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: theme.colors.primary,
   },
-  buttonActive: {
-    backgroundColor: '#0051D5',
+  placementButtonActive: {
+    backgroundColor: theme.colors.primary,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '600',
+  placementButtonText: {
+    fontSize: theme.typography.sizes.medium,
+    fontWeight: theme.typography.weights.semibold,
+    color: theme.colors.primary,
+  },
+  placementButtonTextActive: {
+    color: theme.colors.textInverse,
   },
   sliderContainer: {
-    marginBottom: 12,
-  },
-  label: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 8,
+    marginBottom: theme.spacing.lg,
   },
   slider: {
     width: '100%',
     height: 40,
-  },
-  saveButton: {
-    backgroundColor: '#34C759',
-    padding: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  saveButtonDisabled: {
-    backgroundColor: '#ccc',
-  },
-  saveButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
 });
