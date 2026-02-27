@@ -234,13 +234,7 @@ export const RunSessionScreen: React.FC<{ navigation: any; route?: any }> = ({ n
             <Text style={styles.backButtonText}>←</Text>
           </TouchableOpacity>
           <Text style={styles.headerTitle}>OVERLAP</Text>
-          <TouchableOpacity
-            style={styles.settingsButton}
-            onPress={() => {/* Settings placeholder */}}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.settingsIcon}>⚙</Text>
-          </TouchableOpacity>
+          <View style={styles.headerSpacer} />
         </View>
 
         {/* Glass-Style Timer Card */}
@@ -267,19 +261,22 @@ export const RunSessionScreen: React.FC<{ navigation: any; route?: any }> = ({ n
           </View>
         </View>
 
-        {/* Start/Stop Button */}
-        <TouchableOpacity
-          style={[
-            styles.actionButton,
-            runState === RunState.idle && styles.startButton,
-          ]}
-          onPress={handleStartStop}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.actionButtonText}>
-            {runState === RunState.idle ? 'START LAP' : 'STOP'}
-          </Text>
-        </TouchableOpacity>
+        {/* Bottom Button Container */}
+        <View style={styles.bottomButtonContainer}>
+          {/* Start/Stop Button */}
+          <TouchableOpacity
+            style={[
+              styles.actionButton,
+              runState === RunState.idle && styles.startButton,
+            ]}
+            onPress={handleStartStop}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.actionButtonText}>
+              {runState === RunState.idle ? 'START LAP' : 'STOP'}
+            </Text>
+          </TouchableOpacity>
+        </View>
         </View>
       </SafeAreaView>
     </View>
@@ -306,7 +303,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: theme.spacing.xl,
     paddingBottom: theme.spacing.xxl,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   headerNav: {
     flexDirection: 'row',
@@ -337,23 +334,14 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
   },
-  settingsButton: {
+  headerSpacer: {
     width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: theme.colors.glassBackground,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...theme.shadows.md,
-  },
-  settingsIcon: {
-    fontSize: 20,
-    color: theme.colors.textPrimary,
   },
   timerCard: {
     backgroundColor: theme.colors.glassBackground,
     borderRadius: theme.radius.xl,
     padding: theme.spacing.xl,
+    marginTop: theme.spacing.lg,
     ...theme.shadows.lg,
   },
   liveLabel: {
@@ -402,13 +390,16 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.cardBorder,
     marginHorizontal: theme.spacing.md,
   },
+  bottomButtonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   actionButton: {
     backgroundColor: theme.colors.error,
     paddingVertical: 20,
     paddingHorizontal: theme.spacing.xl,
     borderRadius: theme.radius.pill,
     alignItems: 'center',
-    marginTop: theme.spacing.xl,
     ...theme.shadows.lg,
   },
   startButton: {
