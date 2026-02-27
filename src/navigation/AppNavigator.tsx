@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { TouchableOpacity } from 'react-native';
 import { HomeScreen } from '../screens/HomeScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { TrackSetupScreen } from '../features/trackSetup/TrackSetupScreen';
@@ -35,7 +36,17 @@ const TracksStack = () => {
       <Stack.Screen
         name="TrackSelection"
         component={HomeScreen}
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          title: 'Tracks',
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('TrackSetup')}
+              style={{ marginRight: 16 }}
+            >
+              <TabBarIcon name="newTrack" color={theme.colors.primary} size={24} />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Stack.Screen
         name="TrackSetup"

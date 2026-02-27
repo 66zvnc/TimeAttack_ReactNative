@@ -160,12 +160,6 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor={theme.colors.background} />
       <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.title}>Time Attack</Text>
-          <Text style={styles.subtitle}>Select a track to start</Text>
-        </View>
-
         {/* Track List */}
         {tracks.length === 0 ? (
           <View style={styles.emptyContainer}>
@@ -183,26 +177,6 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
           />
         )}
-
-        {/* Bottom Buttons */}
-        <View style={styles.bottomButtons}>
-          <TouchableOpacity
-            style={styles.newTrackButton}
-            onPress={() => navigation.navigate('TrackSetup')}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.plusIcon}>+</Text>
-            <Text style={styles.newTrackText}>New Track</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={styles.historyButton}
-            onPress={() => navigation.navigate('HistoryTab')}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.historyButtonText}>History</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </SafeAreaView>
   );
@@ -216,21 +190,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
-  },
-  header: {
-    paddingHorizontal: theme.spacing.lg,
-    paddingTop: theme.spacing.xl,
-    paddingBottom: theme.spacing.lg,
-  },
-  title: {
-    fontSize: theme.typography.sizes.heading,
-    fontWeight: theme.typography.weights.bold,
-    color: theme.colors.textPrimary,
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: theme.typography.sizes.body,
-    color: theme.colors.textSecondary,
   },
   listContent: {
     padding: theme.spacing.lg,
@@ -317,47 +276,5 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.sizes.medium,
     color: theme.colors.textMuted,
     textAlign: 'center',
-  },
-  bottomButtons: {
-    flexDirection: 'row',
-    gap: theme.spacing.md,
-    padding: theme.spacing.lg,
-    backgroundColor: theme.colors.background,
-    paddingBottom: Platform.OS === 'ios' ? theme.spacing.md : theme.spacing.lg,
-  },
-  newTrackButton: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.card,
-    paddingVertical: theme.spacing.md,
-    borderRadius: theme.radius.md,
-    borderWidth: 2,
-    borderColor: theme.colors.primary,
-    gap: theme.spacing.xs,
-  },
-  plusIcon: {
-    fontSize: 20,
-    fontWeight: theme.typography.weights.bold,
-    color: theme.colors.primary,
-  },
-  newTrackText: {
-    fontSize: theme.typography.sizes.medium,
-    fontWeight: theme.typography.weights.semibold,
-    color: theme.colors.primary,
-  },
-  historyButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.primary,
-    paddingVertical: theme.spacing.md,
-    borderRadius: theme.radius.md,
-  },
-  historyButtonText: {
-    fontSize: theme.typography.sizes.medium,
-    fontWeight: theme.typography.weights.semibold,
-    color: theme.colors.textInverse,
   },
 });
