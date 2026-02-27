@@ -223,8 +223,9 @@ export const RunSessionScreen: React.FC<{ navigation: any; route?: any }> = ({ n
 
       {/* Floating UI Overlay */}
       <SafeAreaView style={styles.overlay}>
-        {/* Minimal Top Navigation */}
-        <View style={styles.headerNav}>
+        <View style={styles.overlayContent}>
+          {/* Minimal Top Navigation */}
+          <View style={styles.headerNav}>
           <TouchableOpacity
             style={styles.backButton}
             onPress={() => navigation.goBack()}
@@ -279,6 +280,7 @@ export const RunSessionScreen: React.FC<{ navigation: any; route?: any }> = ({ n
             {runState === RunState.idle ? 'START LAP' : 'STOP'}
           </Text>
         </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -297,14 +299,20 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    paddingHorizontal: theme.spacing.lg,
+    bottom: 0,
+    justifyContent: 'space-between',
+  },
+  overlayContent: {
+    flex: 1,
+    paddingHorizontal: theme.spacing.xl,
+    paddingBottom: theme.spacing.xxl,
+    justifyContent: 'space-between',
   },
   headerNav: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: theme.spacing.md,
-    marginBottom: theme.spacing.xl,
   },
   backButton: {
     width: 44,
@@ -346,7 +354,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.glassBackground,
     borderRadius: theme.radius.xl,
     padding: theme.spacing.xl,
-    marginBottom: theme.spacing.lg,
     ...theme.shadows.lg,
   },
   liveLabel: {
@@ -358,7 +365,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.sm,
   },
   timerText: {
-    fontSize: theme.typography.sizes.timer,
+    fontSize: 42,
     fontWeight: theme.typography.weights.bold,
     color: theme.colors.textPrimary,
     textAlign: 'center',
@@ -398,8 +405,10 @@ const styles = StyleSheet.create({
   actionButton: {
     backgroundColor: theme.colors.error,
     paddingVertical: 20,
+    paddingHorizontal: theme.spacing.xl,
     borderRadius: theme.radius.pill,
     alignItems: 'center',
+    marginTop: theme.spacing.xl,
     ...theme.shadows.lg,
   },
   startButton: {
