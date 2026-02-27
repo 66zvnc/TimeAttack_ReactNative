@@ -51,7 +51,7 @@ const TracksStack = () => {
       <Stack.Screen
         name="TrackSetup"
         component={TrackSetupScreen}
-        options={{ title: 'Create Track' }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="RunSession"

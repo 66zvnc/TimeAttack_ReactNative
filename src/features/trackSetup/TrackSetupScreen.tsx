@@ -8,6 +8,7 @@ import {
   Alert,
   Platform,
   StatusBar,
+  SafeAreaView,
 } from 'react-native';
 import MapView, { Circle, Marker, Region, PROVIDER_GOOGLE } from 'react-native-maps';
 import Slider from '@react-native-community/slider';
@@ -94,7 +95,7 @@ export const TrackSetupScreen: React.FC<{ navigation: any }> = ({ navigation }) 
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       
       {/* Full-Screen Map */}
@@ -261,7 +262,7 @@ export const TrackSetupScreen: React.FC<{ navigation: any }> = ({ navigation }) 
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
   },
   topOverlay: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 20,
+    top: Platform.OS === 'ios' ? 50 : 16,
     left: theme.spacing.lg,
     right: theme.spacing.lg,
     flexDirection: 'row',
