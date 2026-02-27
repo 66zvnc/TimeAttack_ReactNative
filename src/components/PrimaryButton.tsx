@@ -85,7 +85,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: theme.radius.md,
+    borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 52,
