@@ -114,7 +114,7 @@ const ProfileStack = () => {
       <Stack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ title: 'Profile' }}
+        options={{ title: 'Profile', headerShown: false }}
       />
     </Stack.Navigator>
   );

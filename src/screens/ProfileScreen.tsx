@@ -20,18 +20,17 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor={theme.colors.background} />
+      
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.headerButton} />
+        <Text style={styles.headerTitle}>Profile</Text>
+        <TouchableOpacity style={styles.headerButton}>
+          <TabBarIcon name="gear" color={theme.colors.textPrimary} size={22} />
+        </TouchableOpacity>
+      </View>
+      
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerButton}>
-            <TabBarIcon name="goBack" color={theme.colors.textPrimary} size={20} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Profile</Text>
-          <TouchableOpacity style={styles.headerButton}>
-            <TabBarIcon name="gear" color={theme.colors.textPrimary} size={22} />
-          </TouchableOpacity>
-        </View>
-
         {/* Profile Section */}
         <View style={styles.profileSection}>
           <View style={styles.avatarContainer}>
@@ -157,7 +156,7 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#FFFFFF',
   },
   container: {
     flex: 1,
@@ -169,7 +168,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: theme.spacing.lg,
     paddingVertical: theme.spacing.md,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#F3F4F6',
   },
   headerButton: {
     width: 40,
