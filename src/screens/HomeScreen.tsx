@@ -232,15 +232,17 @@ const styles = StyleSheet.create({
     color: theme.colors.textInverse,
   },
   radiusBadge: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: '#E0F2FE',
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: theme.radius.pill,
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: '#BAE6FD',
   },
   radiusText: {
     fontSize: theme.typography.sizes.tiny,
-    fontWeight: theme.typography.weights.semibold,
-    color: theme.colors.textInverse,
+    fontWeight: theme.typography.weights.bold,
+    color: theme.colors.primary,
   },
   trackInfo: {
     marginBottom: theme.spacing.md,
