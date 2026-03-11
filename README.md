@@ -147,7 +147,3 @@ The app uses Expo TaskManager for background location tracking, ensuring runs co
 - Best results in open areas with clear sky view
 - Interpolation compensates for 1Hz GPS update rate
 - All distance calculations use proper spherical geometry
-
-## License
-
-MIT
