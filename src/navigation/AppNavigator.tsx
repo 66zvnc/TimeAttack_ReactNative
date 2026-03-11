@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
 import { HomeScreen } from '../screens/HomeScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
+import { AnalysisScreen } from '../screens/AnalysisScreen';
 import { TrackSetupScreen } from '../features/trackSetup/TrackSetupScreen';
 import { RunSessionScreen } from '../features/runSession/RunSessionScreen';
 import { HistoryScreen } from '../features/history/HistoryScreen';
@@ -92,6 +93,34 @@ const HistoryStack = () => {
   );
 };
 
+// Stack navigator for Analysis tab
+const AnalysisStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.colors.card,
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 1,
+          borderBottomColor: theme.colors.cardBorder,
+        },
+        headerTintColor: theme.colors.textPrimary,
+        headerTitleStyle: {
+          fontWeight: theme.typography.weights.bold,
+          fontSize: theme.typography.sizes.title,
+        },
+      }}
+    >
+      <Stack.Screen
+        name="Analysis"
+        component={AnalysisScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 // Stack navigator for Profile tab
 const ProfileStack = () => {
   return (
@@ -159,6 +188,14 @@ export const AppNavigator: React.FC = () => {
           options={{
             tabBarLabel: 'HISTORY',
             tabBarIcon: ({ color }) => <TabBarIcon name="history" color={color} />,
+          }}
+        />
+        <Tab.Screen
+          name="AnalysisTab"
+          component={AnalysisStack}
+          options={{
+            tabBarLabel: 'ANALYSIS',
+            tabBarIcon: ({ color }) => <TabBarIcon name="analysis" color={color} />,
           }}
         />
         <Tab.Screen
