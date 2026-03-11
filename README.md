@@ -1,4 +1,4 @@
-# TimeAttack - React Native (Expo)
+# Overlap - React Native (Expo)
 
 A production-ready mobile app for tracking time attack runs using GPS start and finish zones.
 
