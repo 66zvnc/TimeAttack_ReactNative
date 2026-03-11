@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,18 +10,70 @@ import {
   Platform,
 } from 'react-native';
 import { TabBarIcon } from '../components/TabBarIcon';
+import { RunSelectionModal } from '../components/RunSelectionModal';
+import { useRunStore } from '../store/useRunStore';
+import { Run } from '../core/models/Run';
 import { theme } from '../theme/theme';
 
+interface RunWithTrackName extends Run {
+  trackName: string;
+  isBest: boolean;
+}
+
 export const AnalysisScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const { runs, tracks } = useRunStore();
+  const [showRunModal, setShowRunModal] = useState(false);
+  const [availableRuns, setAvailableRuns] = useState<RunWithTrackName[]>([]);
+
+  useEffect(() => {
+    loadRuns();
+  }, [runs, tracks]);
+
+  const loadRuns = () => {
+    // Get runs with track names and best status
+    const runsWithInfo: RunWithTrackName[] = runs
+      .filter((run) => run.duration !== undefined && run.duration > 0)
+      .map((run) => {
+        const track = tracks.find((t) => t.id === run.trackId);
+        const trackName = track ? track.name : 'Unknown Track';
+
+        // Check if this is the best run for the track
+        const trackRuns = runs
+          .filter((r) => r.trackId === run.trackId && r.duration !== undefined)
+          .sort((a, b) => (a.duration || 0) - (b.duration || 0));
+        const isBest = trackRuns.length > 0 && trackRuns[0].id === run.id;
+
+        return {
+          ...run,
+          trackName,
+          isBest,
+        };
+      })
+      .sort((a, b) => b.startDate - a.startDate); // Sort by most recent first
+    
+    setAvailableRuns(runsWithInfo);
+  };
+
+  const handleAnalyzePress = () => {
+    if (availableRuns.length === 0) {
+      return;
+    }
+    setShowRunModal(true);
+  };
+
+  const handleRunAnalysis = (selectedRunId: string) => {
+    console.log('Analyzing run:', selectedRunId);
+    // TODO: Load and display the selected run's data
+    setShowRunModal(false);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
       
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconButton}>
-          <TabBarIcon name="goBack" color={theme.colors.textPrimary} size={20} />
-        </TouchableOpacity>
+        <View style={styles.iconButton} />
         <Text style={styles.headerTitle}>Delta</Text>
         <TouchableOpacity style={styles.iconButton}>
           <TabBarIcon name="history" color={theme.colors.primary} size={20} />
@@ -32,9 +84,12 @@ export const AnalysisScreen: React.FC<{ navigation: any }> = ({ navigation }) =>
         {/* Track Info */}
         <Text style={styles.trackName}>Silverstone GP • Oct 12</Text>
 
-        {/* Analyze Laps Button */}
-        <TouchableOpacity style={styles.analyzeButton}>
-          <Text style={styles.analyzeButtonText}>Analyze Laps</Text>
+        {/* Analyze Run Button */}
+        <TouchableOpacity 
+          style={styles.analyzeButton}
+          onPress={handleAnalyzePress}
+        >
+          <Text style={styles.analyzeButtonText}>Analyse Run</Text>
         </TouchableOpacity>
 
         {/* Session Delta Section */}
@@ -173,6 +228,14 @@ export const AnalysisScreen: React.FC<{ navigation: any }> = ({ navigation }) =>
           </View>
         </View>
       </ScrollView>
+
+      {/* Run Selection Modal */}
+      <RunSelectionModal
+        visible={showRunModal}
+        runs={availableRuns}
+        onClose={() => setShowRunModal(false)}
+        onAnalyze={handleRunAnalysis}
+      />
     </SafeAreaView>
   );
 };
